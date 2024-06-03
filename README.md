@@ -1,8 +1,9 @@
-# Test recognize digits.
+# Tenserflow test
+### First step
+### Number recognition
 
-## MNIST dataSets
-## Fit model
-## Testув by self pics
+### MNIST dataSets
+### Tested by self pics
 
 
 ![Alt text](./Test_imgs/digits_test.png?raw=true "Title")
@@ -34,3 +35,7 @@
 |  7 - 0.000  |  7 - 0.000  |  7 - 0.000  |  7 - 0.000  | 7 - 0.000   |
 |  8 - 0.000  |  8 - 0.000  |  8 - 0.216  |  8 - 0.010  | 8 - 0.000   |
 |  9 - 0.000  |  9 - 0.000  |  9 - 0.000  |  9 - 0.000  | 9 - 0.000   |
+
+
+###### Leterature: François Chollet "Deep Learning with Python"
+
