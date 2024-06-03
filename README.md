@@ -8,6 +8,7 @@ Test by self pics
 ![Alt text](./Test_imgs/digits_test.png?raw=true "Title")
 
 
+<table>
 <th>#############################################################</th>
 <th>p_num = 0    p_num = 1    p_num = 2    p_num = 3    p_num = 4</th>       
 <th>0 - 1.000    0 - 0.000    0 - 0.000    0 - 0.000    0 - 0.000</th>  
