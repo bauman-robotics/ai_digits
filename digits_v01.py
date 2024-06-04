@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[31]:
+# In[1]:
 
 
 from tensorflow.keras.datasets import mnist
@@ -9,7 +9,7 @@ from tensorflow.keras.datasets import mnist
 import matplotlib.pyplot as plt
 
 
-# In[32]:
+# In[2]:
 
 
 type(train_images)
@@ -28,7 +28,7 @@ test_images = test_images.reshape((10000, 28 * 28))
 test_images = test_images.astype('float32') / 255
 
 
-# In[33]:
+# In[3]:
 
 
 from tensorflow import keras
@@ -39,7 +39,7 @@ layers.Dense(10, activation="softmax")
 ])
 
 
-# In[34]:
+# In[4]:
 
 
 model.compile(optimizer="rmsprop",
@@ -47,14 +47,14 @@ loss="sparse_categorical_crossentropy",
 metrics=["accuracy"])
 
 
-# In[35]:
+# In[5]:
 
 
 model.fit(train_images, train_labels, epochs=5, batch_size=128)
 #model.fit(train_images, train_labels, epochs=100, batch_size=500)
 
 
-# In[47]:
+# In[6]:
 
 
 test_digits = test_images[0:10]
@@ -77,7 +77,7 @@ for i in range (10):
 print('#######################')
 
 
-# In[100]:
+# In[8]:
 
 
 import numpy as np
@@ -85,17 +85,17 @@ from PIL import Image
 import matplotlib.pyplot as plt 
 #import ai_functions as func
 
-img00 = np.asarray(Image.open('./mnist/Test_imgs/0_ok.png').convert('L'))
-img01 = np.asarray(Image.open('./mnist/Test_imgs/1_ok_1.png').convert('L'))
-img02 = np.asarray(Image.open('./mnist/Test_imgs/2_ok_1.png').convert('L'))
-img03 = np.asarray(Image.open('./mnist/Test_imgs/3_ok.png').convert('L'))
-img04 = np.asarray(Image.open('./mnist/Test_imgs/4_ok.png').convert('L'))
+img00 = np.asarray(Image.open('./Test_imgs/0_ok.png').convert('L'))
+img01 = np.asarray(Image.open('./Test_imgs/1_ok_1.png').convert('L'))
+img02 = np.asarray(Image.open('./Test_imgs/2_ok_1.png').convert('L'))
+img03 = np.asarray(Image.open('./Test_imgs/3_ok.png').convert('L'))
+img04 = np.asarray(Image.open('./Test_imgs/4_ok.png').convert('L'))
 
-img05 = np.asarray(Image.open('./mnist/Test_imgs/5_ok.png').convert('L'))
-img06 = np.asarray(Image.open('./mnist/Test_imgs/6_ok_1.png').convert('L'))
-img07 = np.asarray(Image.open('./mnist/Test_imgs/7_ok_1.png').convert('L'))
-img08 = np.asarray(Image.open('./mnist/Test_imgs/8_ok_1.png').convert('L'))
-img09 = np.asarray(Image.open('./mnist/Test_imgs/9_ok.png').convert('L'))
+img05 = np.asarray(Image.open('./Test_imgs/5_ok.png').convert('L'))
+img06 = np.asarray(Image.open('./Test_imgs/6_ok_1.png').convert('L'))
+img07 = np.asarray(Image.open('./Test_imgs/7_ok_1.png').convert('L'))
+img08 = np.asarray(Image.open('./Test_imgs/8_ok_1.png').convert('L'))
+img09 = np.asarray(Image.open('./Test_imgs/9_ok.png').convert('L'))
 
 img00 = np.invert(img00)
 img01 = np.invert(img01)
@@ -155,7 +155,7 @@ plt.show()
 #print('img01[0][0] =', img01[0][0])
 
 
-# In[104]:
+# In[9]:
 
 
 img0 = img00.astype('float32') / 255
@@ -190,7 +190,7 @@ print('img_arr_part1.shape =', img_arr_part1.shape)
 print('#######################')
 
 
-# In[102]:
+# In[10]:
 
 
 predictions = model.predict(img_arr)
@@ -206,8 +206,22 @@ for p_num in range (10):
 ## 7, 8, 9
 
 
+# In[17]:
+
+
+# Сохранение весов в файл HDF5
+model.save('my_model.keras')
+
+
+# In[18]:
+
+
+# Восстановление состояния модели
+model.load_weights('my_model.h5')
+
+
 # In[ ]:
 
 
-
+get_ipython().system('jupyter nbconvert --to script digits_v01.ipynb')
 
