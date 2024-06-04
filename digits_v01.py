@@ -1,15 +1,48 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[1]:
+# In[4]:
 
 
 from tensorflow.keras.datasets import mnist
 (train_images, train_labels), (test_images, test_labels) = mnist.load_data()
 import matplotlib.pyplot as plt
+#-----------------
+from tensorflow import keras
+from tensorflow.keras import layers
+#-----------------
+import numpy as np
+from PIL import Image 
+#-----------------
+import os
+#--- create model --------------
+model = keras.Sequential([
+layers.Dense(512, activation="relu"),
+layers.Dense(10, activation="softmax")
+])
+#----- compile model -----------
+model.compile(optimizer="rmsprop",
+loss="sparse_categorical_crossentropy",
+metrics=["accuracy"])
+#-------------------------------
+
+#-----------------------------------------------
+# Восстановление состояния модели
+path = os.getcwd()
+model_file = path + '/my_model.keras'
+print("model_file_name=", model_file)
+#model = keras.models.load_model(model_file)
+#-----------------------------------------------
+model.summary()
 
 
-# In[2]:
+# In[ ]:
+
+
+
+
+
+# In[5]:
 
 
 type(train_images)
@@ -28,33 +61,14 @@ test_images = test_images.reshape((10000, 28 * 28))
 test_images = test_images.astype('float32') / 255
 
 
-# In[3]:
-
-
-from tensorflow import keras
-from tensorflow.keras import layers
-model = keras.Sequential([
-layers.Dense(512, activation="relu"),
-layers.Dense(10, activation="softmax")
-])
-
-
-# In[4]:
-
-
-model.compile(optimizer="rmsprop",
-loss="sparse_categorical_crossentropy",
-metrics=["accuracy"])
-
-
-# In[5]:
+# In[6]:
 
 
 model.fit(train_images, train_labels, epochs=5, batch_size=128)
 #model.fit(train_images, train_labels, epochs=100, batch_size=500)
 
 
-# In[6]:
+# In[7]:
 
 
 test_digits = test_images[0:10]
@@ -80,9 +94,9 @@ print('#######################')
 # In[8]:
 
 
-import numpy as np
-from PIL import Image 
-import matplotlib.pyplot as plt 
+# import numpy as np
+# from PIL import Image 
+# import matplotlib.pyplot as plt 
 #import ai_functions as func
 
 img00 = np.asarray(Image.open('./Test_imgs/0_ok.png').convert('L'))
@@ -206,22 +220,22 @@ for p_num in range (10):
 ## 7, 8, 9
 
 
-# In[17]:
+# In[11]:
 
 
 # Сохранение весов в файл HDF5
-model.save('my_model.keras')
+model.save(model_file)
+#model.save_weights('my_model.keras')
 
 
-# In[18]:
+# In[12]:
 
 
-# Восстановление состояния модели
-model.load_weights('my_model.h5')
+get_ipython().system('jupyter nbconvert --to script digits_v01.ipynb')
 
 
 # In[ ]:
 
 
-get_ipython().system('jupyter nbconvert --to script digits_v01.ipynb')
+
 
