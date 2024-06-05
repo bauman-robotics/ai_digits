@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[4]:
+# In[1]:
 
 
 from tensorflow.keras.datasets import mnist
@@ -31,18 +31,12 @@ metrics=["accuracy"])
 path = os.getcwd()
 model_file = path + '/my_model.keras'
 print("model_file_name=", model_file)
-#model = keras.models.load_model(model_file)
+model = keras.models.load_model(model_file)
 #-----------------------------------------------
 model.summary()
 
 
-# In[ ]:
-
-
-
-
-
-# In[5]:
+# In[14]:
 
 
 type(train_images)
@@ -61,14 +55,14 @@ test_images = test_images.reshape((10000, 28 * 28))
 test_images = test_images.astype('float32') / 255
 
 
-# In[6]:
+# In[15]:
 
 
 model.fit(train_images, train_labels, epochs=5, batch_size=128)
 #model.fit(train_images, train_labels, epochs=100, batch_size=500)
 
 
-# In[7]:
+# In[16]:
 
 
 test_digits = test_images[0:10]
@@ -91,7 +85,7 @@ for i in range (10):
 print('#######################')
 
 
-# In[8]:
+# In[17]:
 
 
 # import numpy as np
@@ -169,7 +163,7 @@ plt.show()
 #print('img01[0][0] =', img01[0][0])
 
 
-# In[9]:
+# In[18]:
 
 
 img0 = img00.astype('float32') / 255
@@ -204,7 +198,7 @@ print('img_arr_part1.shape =', img_arr_part1.shape)
 print('#######################')
 
 
-# In[10]:
+# In[19]:
 
 
 predictions = model.predict(img_arr)
@@ -220,7 +214,7 @@ for p_num in range (10):
 ## 7, 8, 9
 
 
-# In[11]:
+# In[20]:
 
 
 # Сохранение весов в файл HDF5
@@ -228,10 +222,130 @@ model.save(model_file)
 #model.save_weights('my_model.keras')
 
 
-# In[12]:
+# In[21]:
 
 
 get_ipython().system('jupyter nbconvert --to script digits_v01.ipynb')
+
+
+# In[114]:
+
+
+######################################################
+######################################################
+### Make folders for Test Images for work in server 
+import shutil
+work_directory = path
+input_directory = str(work_directory) + "/web_test_imgs"
+result_directory = str(work_directory) + "/web_results" 
+result_file_name = "/result.c"
+test_str = "Hello"
+file_h = 28
+file_w = 28
+#MAX_COUNT_TEST_IMGS = 100
+#-------------------------------
+try:   
+    os.mkdir(input_directory)
+except OSError as error:
+    do_nothing = 1
+#    shutil.rmtree(input_directory)
+#    os.mkdir(input_directory)
+#-------------------------------
+try:   
+    os.mkdir(result_directory)
+except OSError as error:
+    shutil.rmtree(result_directory)
+    os.mkdir(result_directory)
+#-------------------------------
+
+
+res_flie = open(result_directory + result_file_name, mode="w")
+res_flie.write(str( test_str   +'\n'))    
+res_flie.close()
+
+
+# In[115]:
+
+
+#=== Get list of test files 
+test_files = os.listdir(input_directory)
+num_test_files = len(test_files)
+info_Count_files = "Count_files - " + str(num_test_files)
+first_file_name = "First_file_name - " + test_files[0]
+file_count = 0
+
+res_flie = open(result_directory + result_file_name, mode="w")
+res_flie.write(info_Count_files  +'\n')    
+res_flie.write(first_file_name   +'\n') 
+res_flie.close()
+
+
+# In[125]:
+
+
+# Try to find test image File in folder "./web_test_imgs" 
+MAX_COUNT_TEST_IMGS = 100
+
+#=== Check if it right test_files 
+f_name_ok  = ['' for _ in range(MAX_COUNT_TEST_IMGS)]
+f_name_bad = ['' for _ in range(MAX_COUNT_TEST_IMGS)]
+file_ok_count = 0
+file_bad_count = 0
+for file_count in range(num_test_files):
+    test_img = np.asarray(Image.open(f_name[file_count]).convert('L'))
+    file_shape = test_img.shape
+    file_dim = test_img.ndim
+    if ((file_shape[0] == 28) and (file_shape[1] == 28) and (file_dim == 2)) :
+        f_name_ok[file_ok_count] = test_files[file_count];
+        file_ok_count = file_ok_count + 1
+    else :
+        f_name_bad[file_bad_count] = test_files[file_count];
+        file_bad_count = file_bad_count + 1
+
+
+# In[ ]:
+
+
+
+
+
+# In[133]:
+
+
+#=== Check Ok file list 
+res_flie = open(result_directory + result_file_name, mode="w")
+
+res_flie.write("Warning: MAX_COUNT_TEST_IMGS = " + str(MAX_COUNT_TEST_IMGS)  +'\n')
+ok_list = "#=== Ok file list =========="
+ok_num = str(len(f_name_ok))
+res_flie.write(ok_list   +'\n')
+res_flie.write("count = " + str(file_ok_count)   +'\n')
+for file_count in range(file_ok_count):
+    ok_name = str(file_count) + "   " + f_name_ok[file_count]
+    res_flie.write(ok_name   +'\n')
+res_flie.write("#============================"   +'\n') 
+
+
+# In[134]:
+
+
+#=== Check OBad file list 
+#res_flie = open(result_directory + result_file_name, mode="w")
+bad_list = "#=== Bad file list =========="
+bad_num = str(len(f_name_bad))
+res_flie.write(bad_list   +'\n')
+res_flie.write("count = " + str(file_bad_count)   +'\n')
+for file_count in range(file_bad_count):
+    bad_name = str(file_count) + "   " + f_name_bad[file_count]
+    res_flie.write(bad_name   +'\n')
+res_flie.write("#============================"   +'\n') 
+res_flie.close()
+
+
+# In[ ]:
+
+
+
 
 
 # In[ ]:
