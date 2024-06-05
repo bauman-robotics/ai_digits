@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[5]:
+# In[1]:
 
 
 from tensorflow.keras.datasets import mnist
@@ -36,7 +36,7 @@ model = keras.models.load_model(model_file)
 model.summary()
 
 
-# In[6]:
+# In[2]:
 
 
 type(train_images)
@@ -55,7 +55,7 @@ test_images = test_images.reshape((10000, 28 * 28))
 test_images = test_images.astype('float32') / 255
 
 
-# In[7]:
+# In[3]:
 
 
 #model.fit(train_images, train_labels, epochs=5, batch_size=128)  # work mode
@@ -67,7 +67,7 @@ model.save(model_file)
 #model.save_weights('my_model.keras')
 
 
-# In[8]:
+# In[4]:
 
 
 test_digits = test_images[0:10]
@@ -90,7 +90,7 @@ for i in range (10):
 print('#######################')
 
 
-# In[81]:
+# In[5]:
 
 
 #################################################################################
@@ -110,7 +110,7 @@ print("count right test_files = ", str(f_ok_count))
 #print("second_file_name = ", f_name_ok[1])
 
 
-# In[82]:
+# In[6]:
 
 
 #=== Get Test Imgs ===
@@ -122,7 +122,7 @@ for i in range(f_ok_count) :
     imgs[i] = imgs[i].astype('float32') / 255
 
 
-# In[83]:
+# In[7]:
 
 
 #=== plot Test Imgs ===
@@ -148,7 +148,7 @@ plt.show()
 fig.savefig('plt.png')
 
 
-# In[84]:
+# In[8]:
 
 
 #=== Reshape ====
@@ -159,7 +159,7 @@ print('test_imgs.dim =', imgs[0].ndim)
 print('test_imgs.shape =', imgs.shape) 
 
 
-# In[87]:
+# In[9]:
 
 
 predictions = model.predict(imgs)
@@ -173,10 +173,36 @@ for p_num in range (10):
     print('#######################')
 
 
-# In[88]:
+# In[10]:
+
+
+#=== Save results to file ===
+import Test_Folder_Packet
+Test_Folder_Packet.Save_Result(predictions)
+
+
+# In[11]:
 
 
 get_ipython().system('jupyter nbconvert --to script digits_server_v02.ipynb')
+
+
+# In[ ]:
+
+
+
+
+
+# In[ ]:
+
+
+
+
+
+# In[ ]:
+
+
+
 
 
 # In[ ]:

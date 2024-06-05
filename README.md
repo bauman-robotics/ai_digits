@@ -5,6 +5,10 @@
 ### MNIST dataSets
 ### Tested by self pics
 
+### Files size = ( 28 * 28 ) pix
+### Put files to folder "web_test_imgs"
+### Type CMD: "python3 digits_server_v02.py" 
+### The Result is placed in "web_results/result.c"
 
 ![Alt text](./Test_imgs/digits_test.png?raw=true "Title")
 
