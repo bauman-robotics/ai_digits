@@ -85,7 +85,7 @@ for i in range (10):
 print('#######################')
 
 
-# In[17]:
+# In[140]:
 
 
 # import numpy as np
@@ -158,6 +158,8 @@ fig.tight_layout()
 plt.show()
 #######################
 
+fig.savefig('plt.png')
+
 #print('img01.dim =', img01.ndim)
 #print('img01.shape =', img01.shape)
 #print('img01[0][0] =', img01[0][0])
@@ -225,7 +227,7 @@ model.save(model_file)
 # In[21]:
 
 
-get_ipython().system('jupyter nbconvert --to script digits_v01.ipynb')
+
 
 
 # In[114]:
@@ -309,7 +311,7 @@ for file_count in range(num_test_files):
 
 
 
-# In[133]:
+# In[136]:
 
 
 #=== Check Ok file list 
@@ -326,7 +328,7 @@ for file_count in range(file_ok_count):
 res_flie.write("#============================"   +'\n') 
 
 
-# In[134]:
+# In[137]:
 
 
 #=== Check OBad file list 
@@ -346,6 +348,12 @@ res_flie.close()
 
 
 
+
+
+# In[138]:
+
+
+get_ipython().system('jupyter nbconvert --to script digits_v01.ipynb')
 
 
 # In[ ]:
